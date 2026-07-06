@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api/client';
 import { Star, ChevronRight } from 'lucide-react';
 
-interface Question { id: number; content: string; type: string; answer: string; chapter?: { name: string }; }
+interface Question { id: number; content: string; type: string; answer: string; imageUrl?: string | null; chapter?: { name: string }; }
 
 export default function Favorites() {
  const [questions, setQuestions] = useState<Question[]>([]);
@@ -23,6 +23,9 @@ export default function Favorites() {
  <span className="text-xs text-gray-400">{q.type === 'single' ? '单选题' : q.type === 'multi' ? '多选题' : '判断题'}</span>
  </div>
  <p className="text-sm">{q.content}</p>
+ {q.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-48 object-contain rounded-lg border border-gray-100 bg-gray-50 mt-2" loading="lazy" />
+)}
  <p className="text-xs text-gray-500 mt-1">答案：{q.answer}</p>
  </div>
 ))}

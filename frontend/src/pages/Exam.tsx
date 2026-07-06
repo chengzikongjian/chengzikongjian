@@ -5,7 +5,7 @@ import { Clock, AlertTriangle } from 'lucide-react';
 
 interface Question {
  id: number; content: string; type: string; options: Record<string, string>;
- answer?: string; selectedAnswer?: string | null;
+ answer?: string; selectedAnswer?: string | null; imageUrl?: string | null;
 }
 
 export default function Exam() {
@@ -115,6 +115,9 @@ export default function Exam() {
 
  <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 mb-4">
  <p className="text-base font-medium mb-4">{q?.content}</p>
+ {q?.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-80 object-contain rounded-lg border border-gray-100 bg-gray-50 mb-4" loading="lazy" />
+)}
  <div className="space-y-2">
  {(Object.entries(options) as [string, string][]).map(([key, val]) => {
  const chosen = isMulti ? answers[q.id]?.includes(key) : answers[q.id] === key;

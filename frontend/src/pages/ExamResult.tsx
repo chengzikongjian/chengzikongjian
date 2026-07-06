@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../api/client';
 import { CheckCircle, XCircle, Award, ArrowLeft, Download } from 'lucide-react';
 
-interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; analysis: string; selectedAnswer?: string; isCorrect?: boolean; chapter?: { name: string }; }
+interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; analysis: string; selectedAnswer?: string; isCorrect?: boolean; imageUrl?: string | null; chapter?: { name: string }; }
 
 export default function ExamResult() {
  const { id } = useParams();
@@ -55,6 +55,9 @@ export default function ExamResult() {
  <span className="text-xs text-gray-500">{q.type === 'single' ? '单选' : q.type === 'multi' ? '多选' : '判断'}</span>
  </div>
  <p className="text-sm">{q.content}</p>
+ {q.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-64 object-contain rounded-lg border border-gray-100 bg-gray-50 mt-2" loading="lazy" />
+)}
  <div className="mt-2 text-xs space-y-0.5">
  <p>你的答案：<span className={isCorrect ? 'text-green-600' : 'text-red-600'}>{q.selectedAnswer || '未作答'}</span></p>
  {!isCorrect && <p>正确答案：<span className="text-green-600">{q.answer}</span></p>}

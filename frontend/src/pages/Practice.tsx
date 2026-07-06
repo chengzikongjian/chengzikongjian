@@ -142,6 +142,9 @@ export default function Practice() {
 
  {/* Question text */}
  <p className="text-base md:text-lg font-medium leading-relaxed mb-5 text-gray-900 ">{q.content}</p>
+ {q.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-80 object-contain rounded-lg border border-gray-100 bg-gray-50 mb-5" loading="lazy" />
+)}
 
  {/* Options */}
  <div className="space-y-2.5">

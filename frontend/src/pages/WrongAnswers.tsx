@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api/client';
 import { Trash2, AlertTriangle, ChevronRight } from 'lucide-react';
 
-interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; wrongCount: number; chapter?: { name: string }; }
+interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; wrongCount: number; imageUrl?: string | null; chapter?: { name: string }; }
 
 export default function WrongAnswers() {
  const [questions, setQuestions] = useState<Question[]>([]);
@@ -39,6 +39,9 @@ export default function WrongAnswers() {
  {q.chapter && <span className="text-xs text-gray-400">{q.chapter.name}</span>}
  </div>
  <p className="text-sm">{q.content}</p>
+ {q.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-48 object-contain rounded-lg border border-gray-100 bg-gray-50 mt-2" loading="lazy" />
+)}
  <p className="text-xs text-green-600 mt-1">正确答案：{q.answer}</p>
  </div>
  <ChevronRight size={16} className="text-gray-400 shrink-0 mt-1" />

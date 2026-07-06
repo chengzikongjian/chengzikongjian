@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api/client';
 import { ChevronLeft, ChevronRight, CheckCircle, XCircle, Filter } from 'lucide-react';
 
-interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; analysis: string; }
+interface Question { id: number; content: string; type: string; options: Record<string, string>; answer: string; analysis: string; imageUrl?: string | null; }
 
 export default function SpecialPractice() {
  const navigate = useNavigate();
@@ -82,6 +82,9 @@ export default function SpecialPractice() {
 
  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:p-7 mb-4">
  <p className="text-base md:text-lg font-medium leading-relaxed mb-5 text-gray-900 ">{q.content}</p>
+ {q.imageUrl && (
+ <img src={`${import.meta.env.BASE_URL}${q.imageUrl.replace(/^\//, '')}`} alt="题目配图" className="w-full max-h-80 object-contain rounded-lg border border-gray-100 bg-gray-50 mb-5" loading="lazy" />
+)}
  <div className="space-y-2.5">
  {Object.entries(options).map(([key, val]) => {
  const chosen = isMulti ? selected?.includes(key) : selected === key;
