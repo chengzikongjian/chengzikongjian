@@ -73,6 +73,19 @@ const mockApi = {
       localStorage.setItem('exams', JSON.stringify(exams));
       return { data: { exam } };
     }
+    // 添加收藏
+    if (url === '/favorites') {
+      const qId = data?.question_id;
+      if (qId) {
+        const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+        if (!favs.includes(qId)) {
+          favs.push(qId);
+          localStorage.setItem('favorites', JSON.stringify(favs));
+        }
+      }
+      return { data: { message: 'favorited' } };
+    }
+
     // 提交答题记录 - 自动收录错题
     if (url === '/answers') {
       const qId = data?.question_id;
@@ -255,16 +268,6 @@ const mockApi = {
       return { data: { message: 'updated' } };
     }
 
-    // 提交答题记录 - 自动收录错题
-    if (url === '/answers') {
-      const qId = data?.question_id;
-      const question = questions.find(q => q.id === qId);
-      if (question && data?.selected_answer) {
-        const isCorrect = data.selected_answer === question.answer;
-        if (!isCorrect) addWrongAnswer(qId);
-      }
-      return { data: { message: 'ok' } };
-    }
     return { data: {} };
   },
 
