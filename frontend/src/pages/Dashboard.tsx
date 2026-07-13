@@ -21,7 +21,7 @@ export default function Dashboard() {
  <div className="space-y-6">
  {/* Welcome */}
  <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-4 md:p-6 text-white">
- <h2 className="text-xl md:text-2xl font-bold">欢迎回来，{user?.name || user?.phone}</h2>
+ <h2 className="text-xl md:text-2xl font-bold">逢考必过，一击必中</h2>
  <p className="text-blue-100 text-sm mt-1">坚持刷题，顺利拿证！</p>
  </div>
 
